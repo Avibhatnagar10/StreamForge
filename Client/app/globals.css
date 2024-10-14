@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+/* globals.css or your main CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400&display=swap');
+/* globals.css or your main CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Oswald:wght@400&display=swap');
+
+/* Define custom styles in the @layer directive */
+@layer base {
+  body {
+    @apply bg-black text-white;
+    font-family: 'Roboto', sans-serif; /* Apply Roboto font to body */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Apply Montserrat font to headings */
+  }
+}
+
+/* globals.css */
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px hsl(225.9 ,70% ,40.2%), 0 0 20px hsl(0, 0%, 0%), 0 0 30px hsl(240, 10%, 3.9%);
+  }
+  50% {
+    box-shadow: 0 0 20px hsl(225.9 ,70% ,40.2%), 0 0 30px hsl(240, 10%, 3.9%), 0 0 40px hsl(240, 10%, 3.9%);
+  }
+  100% {
+    box-shadow: 0 0 10px hsl(0, 0%, 0%), 0 0 20px hsl(240, 10%, 3.9%), 0 0 30px hsl(240, 10%, 3.9%);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: glow 1.5s ease-in-out infinite alternate, float 3s ease-in-out infinite;
+  margin: 20px; /* Adjust for spacing between cards */
+}
+
+
+.card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.glow-card {
+  box-shadow: 0 0 15px rgba(0, 153, 255, 0.8), 
+              0 0 30px rgba(0, 153, 255, 0.4), 
+              0 0 45px rgba(0, 153, 255, 0.8), 
+              0 0 60px rgba(0, 153, 255, 0.8);
+}
+
+.card-button {
+  margin-top: 20px; /* Space above the button */
+  padding: 10px 20px; /* Padding for the button */
+  background-color: #1e90ff; /* Button color */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+.card-button:hover {
+  background-color: #1c86ee; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  background: hsl(240, 10%, 3.9%); /* Hide scrollbar */
+}
+
+/* Hide scrollbar for IE and Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  background: hsl(240, 10%, 3.9%); /* Firefox */
+}
+
+.background {
+  background: linear-gradient(to bottom, hsl(240, 10%, 3.9%), black);/* Dark shade based on HSL values */
+}
+.hide-scrollbar {
+  overflow-y: scroll; /* Enable scrolling */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+/* For Firefox */
+.hide-scrollbar {
+  scrollbar-width: none; /* Hides the scrollbar */
+}
+
+/* For Internet Explorer and Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Hides the scrollbar */
+}
+
+/* Body font */
+body {
+  font-family: 'Roboto', sans-serif; /* Body text font */
+}
+
+/* Card Titles and Body Text */
+.card-title {
+  font-family: 'Montserrat', sans-serif; /* Font for card titles */
+  font-weight: bold; /* Bold font for titles */
+}
+
+.card-text {
+  font-family: 'Montserrat', sans-serif; /* Font for card text */
+}
+
+/* Fade-in & Scale-up for entry */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.8), 0 0 40px rgba(0, 145, 255, 0.5);
+  }
+}
+
+/* Fade-out & Scale-down for exit */
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.8), 0 0 40px rgba(0, 132, 255, 0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  }
+}
+
+/* Apply the animations to the popup */
+.animate-fade-in {
+  animation: fadeInScale 0.2s ease forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOutScale 0.5s ease forwards;
+}
+
+/* Add glowing effect on the popup */
+.glow-popup {
+  box-shadow: 0 0 20px rgba(1, 87, 245, 0.8), 0 0 40px rgba(0, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.8); /* Keep the black theme with some transparency */
+  border-radius: 15px;
+}
+
+.popup-position {
+  position: relative;
+  top: -100px; /* Move the popup 100px higher from the center */
+}
+
+
+/* Fade-in animation with a duration of 2 seconds */
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Slide-up animation with a duration of 2 seconds */
+.animate-slide-up {
+  animation: slideUp 0.1s ease-in-out;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY();
+    opacity: 1;
+  }
+}
+
