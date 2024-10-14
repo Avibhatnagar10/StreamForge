@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, User } from "firebase/auth";
 import Navbar from "./components/Navbar"; // Adjust the import path if necessary
 import "./globals.css"; // Import global styles
 import { FaArrowRight, FaGoogle } from "react-icons/fa"; // Icon import
@@ -11,9 +11,10 @@ import { auth } from "./firebaseConfig"; // Firebase auth import
 import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
 const HomePage = () => {
+  // Explicitly set the user type to be either Firebase.User or null
+  const [user, setUser] = useState<User | null>(null); 
   const [showCards, setShowCards] = useState(false);
   const [overflow, setOverflow] = useState("hidden"); // Initial overflow state is hidden
-  const [user, setUser] = useState(null); // Track signed-in user
   const [showPopup, setShowPopup] = useState(false); // Track popup visibility
   const [popupVisible, setPopupVisible] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState(""); // To store welcome message
@@ -23,7 +24,7 @@ const HomePage = () => {
   // Check user authentication status
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser || null);
+      setUser(currentUser || null); // Set the user state (Firebase.User or null)
       if (currentUser) {
         const userName = currentUser.displayName || currentUser.email;
         const isNewUser = currentUser.metadata.creationTime === currentUser.metadata.lastSignInTime;
@@ -36,7 +37,7 @@ const HomePage = () => {
         setTimeout(() => {
           setShowPopup(false); // Trigger exit animation
           setTimeout(() => setPopupVisible(false), 500); // Wait for animation to finish before hiding completely
-        }, 1000); // Extended time to match the requirement
+        }, 1000); // Extended time to 5 seconds
       }
     });
     return () => unsubscribe();
@@ -62,7 +63,7 @@ const HomePage = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        setUser(result.user);
+        setUser(result.user); // result.user is of type Firebase.User
         setShowPopup(false); // Trigger exit animation
         setTimeout(() => setPopupVisible(false), 500); // Hide popup after animation
         setShowCards(true);
@@ -72,10 +73,15 @@ const HomePage = () => {
       });
   };
 
-  // Inside HomePage.tsx, update the handleStartLiveStream function
-const handleStartLiveStream = () => {
-  window.open("/livestreampage", "_blank"); // Open in a new tab
-};
+  const handleStartLiveStream = () => {
+    if (user) {
+      window.open("/livestreampage", "_blank"); // Open live stream in a new tab
+    } else {
+      alert("Please sign in to start a live stream.");
+      setPopupVisible(true); // Show sign-in popup if not signed in
+      setShowPopup(true);
+    }
+  };
 
   return (
     <div className={`relative h-screen overflow-y-${overflow} text-white hide-scrollbar background`}>
