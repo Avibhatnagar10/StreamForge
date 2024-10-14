@@ -14,6 +14,9 @@ const UserProfile = () => {
     router.push("/"); // Navigate to the home page
   };
 
+  console.log("hello")
+  //bhagwan ke naam pe hoja
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       {user ? (
